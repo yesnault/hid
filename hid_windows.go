@@ -201,6 +201,9 @@ func ByPath(devicePath string) (*DeviceInfo, error) {
 	C.HidD_GetProductString(dev.h(), (C.PVOID)(&buff[0]), bufLen)
 	devInfo.Product = syscall.UTF16ToString(buff)
 
+	C.HidD_GetSerialNumberString(dev.h(), (C.PVOID)(&buff[0]), bufLen)
+	devInfo.SerialNumber = syscall.UTF16ToString(buff)
+
 	var preparsedData C.PHIDP_PREPARSED_DATA
 	if C.HidD_GetPreparsedData(dev.h(), &preparsedData) != 0 {
 		var caps C.HIDP_CAPS
